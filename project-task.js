@@ -45,18 +45,44 @@ Step 4: Test Your Solution
 function processFile(fileName, fileData) {
   try {
     // TODO: Add input validation here
-    
+    if (!fileName) {
+      throw new ReferenceError("Please add file name");
+    }
+
+    if (!fileData) {
+      throw new Error("Please add file data");
+    }
+
+    if (typeof fileData != "string") {
+      throw new TypeError("fileData must be a string");
+    }
     // TODO: Implement simulated file processing here
     console.log(`Processing file: ${fileName}`);
     console.log(`File content: ${fileData}`);
-    
+
     // TODO: Add simulated file operations (reading/writing)
-    
+    console.log(`Reading ${fileName}`);
+    setTimeout(() => {
+      console.log("Parsing...overwriting files");
+    }, 2000); // delay in milliseconds
+
   } catch (err) {
     // TODO: Implement error handling
-    console.error(err);
+    if (err instanceof ReferenceError) {
+      console.error(`\nReference Error: ${err.message}`);
+    } else if (err instanceof TypeError) {
+      console.error(`\nType Error: ${err.message}`);
+    } else {
+      console.error(`\nError: ${err.message}`);
+    }
   }
   // TODO: Implement a finally block to close resources
+  finally {
+    console.log(`Finally block entered: starting cleanup`);
+    setTimeout(() => {
+      console.log("File cleanup completed");
+    }, 2500); // delay in milliseconds
+  }
 }
 
 // ============================================
